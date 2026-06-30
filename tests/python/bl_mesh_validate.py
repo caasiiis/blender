@@ -126,7 +126,7 @@ def test_builtins():
                         else:
                             data.polygons[p].loop_total = \
                                 random.randrange(0, 10)
-            except:
+            except Exception:
                 pass
 
             while data.validate(verbose=True):

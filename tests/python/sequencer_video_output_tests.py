@@ -104,9 +104,11 @@ strip.color_multiply = 1.0001
         )
 
         try:
-            subprocess.check_output(command)
+            subprocess.check_output(command, stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as e:
-            pass
+            print(f"Warning: render command failed with exit code {e.returncode}")
+            if e.output:
+                print(e.output.decode("utf-8", "ignore"))
 
 
 def main():

@@ -138,7 +138,7 @@ def deprecations() -> list[tuple[datetime.datetime, tuple[str, int], str]]:
                             (fn, line_number),
                             info,
                         ))
-                except:
+                except Exception:
                     print("Error file - %r:%d" % (fn, line_number))
                     import traceback
                     traceback.print_exc()

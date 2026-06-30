@@ -119,7 +119,7 @@ class AbstractNodeCopyOperatorTest(unittest.TestCase):
                 group_tree.interface.new_socket(name=socket_idname, in_out='INPUT', socket_type=socket_idname)
                 group_tree.interface.new_socket(name=socket_idname, in_out='OUTPUT', socket_type=socket_idname)
             except TypeError:
-                # print(f"Skipping unsupported socket type {socket_idname} in tree {tree.bl_idname}")
+                print(f"Skipping unsupported socket type {socket_idname} in tree {tree.bl_idname}")
                 pass
 
         group_node = tree.nodes.new(type=group_node_type)

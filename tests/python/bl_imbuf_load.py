@@ -51,7 +51,7 @@ class ImBufTest(AbstractImBufTest):
                 failed = not (actual_metadata == expected_metadata)
             except Exception as ex:
                 if self.verbose:
-                    print_message(ex.output.decode("utf-8", 'ignore'))
+                    print_message(str(ex))
                 failed = True
         else:
             if not self.update:

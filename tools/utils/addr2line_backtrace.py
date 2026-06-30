@@ -277,8 +277,8 @@ def main() -> None:
             try:
                 with open(backtrace_filepath, 'r', encoding="utf-8", errors="surrogateescape") as fh:
                     bactrace_data = fh.read()
-            except Exception as ex:
-                print("Filed to open {!r}, {:s}".format(backtrace_filepath, str(ex)))
+            except OSError as ex:
+                print("Failed to open {!r}, {:s}".format(backtrace_filepath, str(ex)))
                 continue
 
             addr2line_for_filedata(args.exe, base_path, args.time_command, args.skip_last, jobs, bactrace_data)

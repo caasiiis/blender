@@ -30,7 +30,7 @@ def report_as_html(analysis_dir, report_dir, *, reference_dir=None):
 
     try:
         shutil.rmtree(report_dir)
-    except:
+    except FileNotFoundError:
         pass
 
     build_summary(analysis_dir, report_dir, reference_dir)

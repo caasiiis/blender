@@ -5,7 +5,7 @@
 try:
     from . import data_types
     from .fbx_utils_threading import MultiThreadedTaskConsumer
-except:
+except ImportError:
     import data_types
     from fbx_utils_threading import MultiThreadedTaskConsumer
 

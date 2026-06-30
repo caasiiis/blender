@@ -111,7 +111,7 @@ class bli_vector_SyntheticProvider:
             if (size_in_bytes % self.data_size) != 0:
                 return 0
             return (size_in_bytes // self.data_size)
-        except:
+        except Exception:
             return 0
 
     def get_child_at_index(self, index):

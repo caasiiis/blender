@@ -435,7 +435,7 @@ def module_classes(mod):
     for value in mod.__dict__.values():
         try:
             is_subclass = issubclass(value, BaseFakeUI)
-        except:
+        except TypeError:
             is_subclass = False
 
         if is_subclass:
