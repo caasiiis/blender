@@ -11,12 +11,10 @@ from bl_ui.properties_animviz import (
     MotionPathButtonsPanel,
     MotionPathButtonsPanel_display,
 )
+from bl_ui.utils import DataButtonsPanelBase
 
 
-class ArmatureButtonsPanel:
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = "data"
+class ArmatureButtonsPanel(DataButtonsPanelBase):
 
     @classmethod
     def poll(cls, context):

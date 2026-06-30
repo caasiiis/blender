@@ -15,7 +15,7 @@ from bpy.app.translations import (
     contexts as i18n_contexts,
 )
 from bl_ui import anim, node_add_menu
-from bl_ui.utils import PresetPanel
+from bl_ui.utils import COMPAT_ENGINES_RENDER_WORKBENCH, PresetPanel
 from bl_ui.properties_grease_pencil_common import (
     AnnotationDataPanel,
 )
@@ -874,10 +874,7 @@ class NODE_PT_texture_mapping(Panel):
     bl_category = "Node"
     bl_label = "Texture Mapping"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_RENDER_WORKBENCH
 
     @classmethod
     def poll(cls, context):

@@ -4,12 +4,10 @@
 
 from bpy.types import Panel
 from bpy.app.translations import contexts as i18n_contexts
+from bl_ui.utils import DataButtonsPanelBase
 
 
-class DataButtonsPanel:
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = "data"
+class DataButtonsPanel(DataButtonsPanelBase):
 
     @classmethod
     def poll(cls, context):

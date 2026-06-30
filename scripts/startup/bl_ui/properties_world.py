@@ -8,6 +8,7 @@ from bpy.app.translations import contexts as i18n_contexts
 from rna_prop_ui import PropertyPanel
 from bpy_extras.node_utils import find_node_input
 from bl_ui.space_properties import PropertiesAnimationMixin
+from bl_ui.utils import COMPAT_ENGINES_ALL, COMPAT_ENGINES_EEVEE
 
 
 class WorldButtonsPanel:
@@ -24,11 +25,7 @@ class WorldButtonsPanel:
 class WORLD_PT_context_world(WorldButtonsPanel, Panel):
     bl_label = ""
     bl_options = {'HIDE_HEADER'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     @classmethod
     def poll(cls, context):
@@ -50,7 +47,7 @@ class WORLD_PT_context_world(WorldButtonsPanel, Panel):
 class EEVEE_WORLD_PT_mist(WorldButtonsPanel, Panel):
     bl_label = "Mist Pass"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -72,11 +69,7 @@ class EEVEE_WORLD_PT_mist(WorldButtonsPanel, Panel):
 
 
 class WORLD_PT_animation(WorldButtonsPanel, PropertiesAnimationMixin, PropertyPanel, Panel):
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -97,18 +90,14 @@ class WORLD_PT_animation(WorldButtonsPanel, PropertiesAnimationMixin, PropertyPa
 
 
 class WORLD_PT_custom_props(WorldButtonsPanel, PropertyPanel, Panel):
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
     _context_path = "world"
     _property_type = bpy.types.World
 
 
 class EEVEE_WORLD_PT_surface(WorldButtonsPanel, Panel):
     bl_label = "Surface"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -141,7 +130,7 @@ class EEVEE_WORLD_PT_volume(WorldButtonsPanel, Panel):
     bl_label = "Volume"
     bl_translation_context = i18n_contexts.id_id
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -174,7 +163,7 @@ class EEVEE_WORLD_PT_volume(WorldButtonsPanel, Panel):
 class EEVEE_WORLD_PT_settings(WorldButtonsPanel, Panel):
     bl_label = "Settings"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -189,7 +178,7 @@ class EEVEE_WORLD_PT_settings(WorldButtonsPanel, Panel):
 class EEVEE_WORLD_PT_lightprobe(WorldButtonsPanel, Panel):
     bl_label = "Light Probe"
     bl_parent_id = "EEVEE_WORLD_PT_settings"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw(self, context):
         layout = self.layout
@@ -203,7 +192,7 @@ class EEVEE_WORLD_PT_lightprobe(WorldButtonsPanel, Panel):
 class EEVEE_WORLD_PT_sun(WorldButtonsPanel, Panel):
     bl_label = "Sun"
     bl_parent_id = "EEVEE_WORLD_PT_settings"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw(self, context):
         layout = self.layout
@@ -219,7 +208,7 @@ class EEVEE_WORLD_PT_sun_shadow(WorldButtonsPanel, Panel):
     bl_label = "Shadow"
     bl_parent_id = "EEVEE_WORLD_PT_sun"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw_header(self, context):
         world = context.world

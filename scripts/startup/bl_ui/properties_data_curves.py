@@ -6,12 +6,10 @@ import bpy
 from bpy.types import Menu, Panel, UIList
 from rna_prop_ui import PropertyPanel
 from bl_ui.space_properties import PropertiesAnimationMixin
+from bl_ui.utils import COMPAT_ENGINES_ALL, DataButtonsPanelBase
 
 
-class DataButtonsPanel:
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = "data"
+class DataButtonsPanel(DataButtonsPanelBase):
 
     @classmethod
     def poll(cls, context):
@@ -22,11 +20,7 @@ class DataButtonsPanel:
 class DATA_PT_context_curves(DataButtonsPanel, Panel):
     bl_label = ""
     bl_options = {'HIDE_HEADER'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -43,11 +37,7 @@ class DATA_PT_context_curves(DataButtonsPanel, Panel):
 
 class DATA_PT_curves_surface(DataButtonsPanel, Panel):
     bl_label = "Surface"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -151,11 +141,7 @@ class CURVES_UL_attributes(UIList):
 
 class DATA_PT_CURVES_attributes(DataButtonsPanel, Panel):
     bl_label = "Attributes"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         curves = context.curves
@@ -184,20 +170,12 @@ class DATA_PT_CURVES_attributes(DataButtonsPanel, Panel):
 
 
 class DATA_PT_curves_animation(DataButtonsPanel, PropertiesAnimationMixin, PropertyPanel, Panel):
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
     _animated_id_context_property = "curves"
 
 
 class DATA_PT_custom_props_curves(DataButtonsPanel, PropertyPanel, Panel):
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
     _context_path = "object.data"
     _property_type = bpy.types.Curves if hasattr(bpy.types, "Curves") else None
 

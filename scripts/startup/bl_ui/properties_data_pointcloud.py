@@ -5,12 +5,10 @@
 import bpy
 from bpy.types import Menu, Panel, UIList
 from rna_prop_ui import PropertyPanel
+from bl_ui.utils import COMPAT_ENGINES_ALL, DataButtonsPanelBase
 
 
-class DataButtonsPanel:
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = "data"
+class DataButtonsPanel(DataButtonsPanelBase):
 
     @classmethod
     def poll(cls, context):
@@ -21,11 +19,7 @@ class DataButtonsPanel:
 class DATA_PT_context_pointcloud(DataButtonsPanel, Panel):
     bl_label = ""
     bl_options = {'HIDE_HEADER'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -118,11 +112,7 @@ class POINTCLOUD_UL_attributes(UIList):
 
 class DATA_PT_pointcloud_attributes(DataButtonsPanel, Panel):
     bl_label = "Attributes"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         pointcloud = context.pointcloud
@@ -151,11 +141,7 @@ class DATA_PT_pointcloud_attributes(DataButtonsPanel, Panel):
 
 
 class DATA_PT_custom_props_pointcloud(DataButtonsPanel, PropertyPanel, Panel):
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
     _context_path = "object.data"
     _property_type = bpy.types.PointCloud if hasattr(bpy.types, "PointCloud") else None
 

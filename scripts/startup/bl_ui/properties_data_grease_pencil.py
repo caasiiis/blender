@@ -5,22 +5,17 @@ import bpy
 from bpy.types import Panel, Menu, UIList
 from rna_prop_ui import PropertyPanel
 from bl_ui.space_properties import PropertiesAnimationMixin
+from bl_ui.utils import DataButtonsPanelBase
 
 
-class DataButtonsPanel:
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = "data"
+class DataButtonsPanel(DataButtonsPanelBase):
 
     @classmethod
     def poll(cls, context):
         return hasattr(context, "grease_pencil") and context.grease_pencil
 
 
-class LayerDataButtonsPanel:
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = "data"
+class LayerDataButtonsPanel(DataButtonsPanelBase):
 
     @classmethod
     def poll(cls, context):

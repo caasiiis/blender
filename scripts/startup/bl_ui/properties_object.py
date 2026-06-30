@@ -10,6 +10,7 @@ import bpy
 from bpy.types import Panel, Menu
 from rna_prop_ui import PropertyPanel
 from bl_ui.space_properties import PropertiesAnimationMixin
+from bl_ui.utils import COMPAT_ENGINES_ALL, COMPAT_ENGINES_RENDER_EEVEE, COMPAT_ENGINES_RENDER_WORKBENCH
 
 
 class ObjectButtonsPanel:
@@ -412,11 +413,7 @@ class OBJECT_PT_motion_paths_display(MotionPathButtonsPanel_display, Panel):
 class OBJECT_PT_visibility(ObjectButtonsPanel, Panel):
     bl_label = "Visibility"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     @classmethod
     def poll(cls, context):
@@ -492,10 +489,7 @@ class OBJECT_PT_shading(ObjectButtonsPanel, Panel):
     bl_context = "object"
     bl_options = {'DEFAULT_CLOSED'}
 
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_RENDER_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -633,10 +627,7 @@ class OBJECT_PT_animation(ObjectButtonsPanel, PropertiesAnimationMixin, Property
 
 
 class OBJECT_PT_custom_props(ObjectButtonsPanel, PropertyPanel, Panel):
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_RENDER_WORKBENCH
     _context_path = "object"
     _property_type = bpy.types.Object
 

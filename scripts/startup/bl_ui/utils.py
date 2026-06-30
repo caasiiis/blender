@@ -5,6 +5,37 @@
 from bpy.types import Menu
 
 
+# Shared render engine compatibility sets.
+# Use these instead of repeating the engine name literals in each panel class.
+COMPAT_ENGINES_ALL = frozenset({
+    'BLENDER_RENDER',
+    'BLENDER_EEVEE',
+    'BLENDER_WORKBENCH',
+})
+COMPAT_ENGINES_EEVEE = frozenset({'BLENDER_EEVEE'})
+COMPAT_ENGINES_WORKBENCH = frozenset({'BLENDER_WORKBENCH'})
+COMPAT_ENGINES_EEVEE_WORKBENCH = frozenset({
+    'BLENDER_EEVEE',
+    'BLENDER_WORKBENCH',
+})
+COMPAT_ENGINES_RENDER_WORKBENCH = frozenset({
+    'BLENDER_RENDER',
+    'BLENDER_WORKBENCH',
+})
+COMPAT_ENGINES_RENDER_EEVEE = frozenset({
+    'BLENDER_RENDER',
+    'BLENDER_EEVEE',
+})
+
+
+# Base mix-in for data property panels (don't register).
+# Subclasses must override ``poll`` to check the relevant context attribute.
+class DataButtonsPanelBase:
+    bl_space_type = 'PROPERTIES'
+    bl_region_type = 'WINDOW'
+    bl_context = "data"
+
+
 # Panel mix-in class (don't register).
 class PresetPanel:
     bl_space_type = 'PROPERTIES'
