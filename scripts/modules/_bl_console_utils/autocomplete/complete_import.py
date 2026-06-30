@@ -89,7 +89,7 @@ def module_list(path):
         from zipimport import zipimporter
         try:
             folder_list = [f for f in zipimporter(path)._files]
-        except:
+        except (ImportError, OSError):
             folder_list = []
     else:
         folder_list = []
@@ -136,7 +136,7 @@ def complete(line):
 
         try:
             m = __import__(mod)
-        except:
+        except ImportError:
             return []
         mods = mod.split('.')
         for module in mods[1:]:

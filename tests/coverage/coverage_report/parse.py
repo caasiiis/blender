@@ -279,7 +279,7 @@ def clear_old_analysis_on_disk(analysis_dir):
     print("Clear old analysis...")
     try:
         shutil.rmtree(analysis_dir)
-    except:
+    except FileNotFoundError:
         pass
 
 

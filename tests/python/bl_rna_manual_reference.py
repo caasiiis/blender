@@ -25,7 +25,7 @@ def test_data():
             assert len(value) == 2
             assert isinstance(value[0], str)
             assert isinstance(value[1], str)
-        except:
+        except (AssertionError, TypeError):
             print("Expected a tuple of 2 strings, instead item {:d} is a {:s}: {!r}".format(i, str(type(value)), value))
             import traceback
             traceback.print_exc()

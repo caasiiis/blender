@@ -43,7 +43,7 @@ def execute(context, _is_interactive):
 
     try:
         line = sc.history[-1].body
-    except:
+    except IndexError:
         return {'CANCELLED'}
 
     bpy.ops.console.scrollback_append(text=sc.prompt + line, type='INPUT')

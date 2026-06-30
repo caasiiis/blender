@@ -398,7 +398,7 @@ def cmd_bisect(env: api.TestEnvironment, argv: list):
         start_str, end_str = args.range.split('-')
         start_dt = datetime.datetime.strptime(start_str, '%Y%m%d').replace(tzinfo=datetime.timezone.utc)
         end_dt = datetime.datetime.strptime(end_str, '%Y%m%d').replace(tzinfo=datetime.timezone.utc)
-    except:
+    except (ValueError, AttributeError):
         sys.stderr.write('Error: invalid date range format. Use YYYYMMDD-YYYYMMDD\n')
         sys.exit(1)
     if start_dt >= end_dt:

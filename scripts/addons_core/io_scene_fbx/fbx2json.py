@@ -330,7 +330,7 @@ def main():
     for arg in sys.argv[1:]:
         try:
             fbx2json(arg)
-        except:
+        except Exception:
             print("Failed to convert %r, error:" % arg)
 
             import traceback

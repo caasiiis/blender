@@ -647,7 +647,7 @@ def main():
         cat = -1
         try:
             cat = int(ch)
-        except:
+        except ValueError:
             pass
         if 0 <= cat < max_idx:
             return cat

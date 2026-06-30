@@ -141,7 +141,7 @@ def execute(context, is_interactive):
 
     try:
         line_object = sc.history[-1]
-    except:
+    except IndexError:
         return {'CANCELLED'}
 
     console, stdout, stderr = get_console(hash(context.region))
@@ -180,7 +180,7 @@ def execute(context, is_interactive):
             stderr.write("{!r}\n".format(ex))
             # Without this, entering new commands may include the previous command, see: #109435.
             console.resetbuffer()
-        except:
+        except Exception:
             # Unlikely, but this can happen with unicode errors accessing `line_object.body`.
             import traceback
             stderr.write(traceback.format_exc())
@@ -283,7 +283,7 @@ def autocomplete(context):
             ofs = len(line_new) - len(line)
             sc.select_start += ofs
             sc.select_end += ofs
-        except:
+        except Exception:
             # unlikely, but this can happen with unicode errors for example.
             # or if the API attribute access itself causes an error.
             import traceback

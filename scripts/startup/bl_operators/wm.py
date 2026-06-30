@@ -1207,10 +1207,10 @@ class WM_OT_path_open(Operator):
         else:
             try:
                 subprocess.check_call(["xdg-open", filepath])
-            except Exception:
-                # `xdg-open` *should* be supported by recent Gnome, KDE, XFCE.
-                import traceback
-                traceback.print_exc()
+            except FileNotFoundError:
+                self.report({'ERROR'}, "xdg-open not found, cannot open file")
+            except subprocess.CalledProcessError as ex:
+                self.report({'ERROR'}, rpt_("Failed to open file: {:s}").format(str(ex)))
 
         return {'FINISHED'}
 

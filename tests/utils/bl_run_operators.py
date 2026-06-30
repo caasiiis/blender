@@ -628,7 +628,7 @@ if USE_ATTRSET:
                         for val_rnd in _random_values:
                             try:
                                 setattr(val, prop, val_rnd)
-                            except:
+                            except Exception:
                                 pass
 
 
@@ -661,7 +661,7 @@ def run_ops(
                 # we can't be sure it will work
                 try:
                     setup_fn()
-                except:
+                except Exception:
                     pass
             else:
                 setup_fn()

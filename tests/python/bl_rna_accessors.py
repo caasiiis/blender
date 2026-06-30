@@ -50,7 +50,7 @@ class TestRnaProperties(unittest.TestCase):
             if p.type == 'COLLECTION':
                 try:
                     iter_data = getattr(struct, p.identifier)
-                except:
+                except Exception:
                     self.assertTrue(False, msg=f"Failed to retrieve {rna_path}.{p.identifier} collection")
                 for p_idx, (p_key, p_data) in enumerate(iter_data.items()):
                     p_keys_str = ['"' + p_key + '"', str(p_idx)] if isinstance(p_key, str) else [str(p_key), str(p_idx)]
@@ -58,13 +58,13 @@ class TestRnaProperties(unittest.TestCase):
             elif p.type == 'POINTER':
                 try:
                     p_data = getattr(struct, p.identifier)
-                except:
+                except Exception:
                     self.assertTrue(False, msg=f"Failed to retrieve {rna_path}.{p.identifier} pointer")
                 process_pointer_property(self, struct, rna_path, p, p_data)
             else:
                 try:
                     p_data = getattr(struct, p.identifier)
-                except:
+                except Exception:
                     self.assertTrue(False, msg=f"Failed to retrieve {rna_path}.{p.identifier} value")
 
     def test_paths_generation(self):

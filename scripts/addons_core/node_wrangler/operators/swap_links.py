@@ -58,13 +58,13 @@ class NODE_OT_swap_links(Operator, NWBase):
                 for connection in n1_outputs:
                     try:
                         connect_sockets(n2.outputs[connection[0]], connection[1])
-                    except:
+                    except (IndexError, OSError):
                         self.report({'WARNING'},
                                     "Some connections have been lost due to differing numbers of output sockets")
                 for connection in n2_outputs:
                     try:
                         connect_sockets(n1.outputs[connection[0]], connection[1])
-                    except:
+                    except (IndexError, OSError):
                         self.report({'WARNING'},
                                     "Some connections have been lost due to differing numbers of output sockets")
             else:

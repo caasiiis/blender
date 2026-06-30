@@ -1499,12 +1499,12 @@ class USDExportTest(AbstractUSDTest):
 
         try:
             self.export_and_validate(filepath=str(test_path))
-        except:
+        except Exception:
             pass
 
         try:
             bpy.ops.wm.usd_import(filepath=str(test_path))
-        except:
+        except Exception:
             pass
 
         # Unregister the hooks. We do this here in case the following asserts fail.

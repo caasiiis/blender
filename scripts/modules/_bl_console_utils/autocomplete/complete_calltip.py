@@ -119,11 +119,11 @@ def get_argspec(func, *, strip_self=True, doc=None, source=None):
         # try with the inspect.getarg* functions
         try:
             argspec = inspect.formatargspec(*inspect.getfullargspec(func))
-        except:
+        except (TypeError, NameError):
             try:
                 argspec = inspect.formatargvalues(
                     *inspect.getargvalues(func))
-            except:
+            except (TypeError, NameError):
                 argspec = ''
         if strip_self:
             argspec = argspec.replace('self, ', '')

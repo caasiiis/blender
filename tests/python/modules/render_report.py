@@ -243,7 +243,8 @@ def get_gpu_device_vendor(blender):
             if line.startswith("GPU_DEVICE_TYPE:"):
                 vendor = line.split(':')[1].upper()
                 return vendor
-    except Exception:
+    except (subprocess.SubprocessError, OSError) as ex:
+        print(f"Warning: failed to detect GPU device vendor: {ex}")
         return None
     return None
 
@@ -635,8 +636,9 @@ class Report:
                 if completed_process.returncode != 0:
                     crash = True
                 output = completed_process.stdout
-            except Exception:
+            except (subprocess.SubprocessError, OSError) as ex:
                 crash = True
+                print(f"Warning: render process failed: {ex}")
 
             if verbose:
                 def quote_expr_args(cmd):

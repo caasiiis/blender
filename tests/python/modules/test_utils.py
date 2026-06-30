@@ -26,7 +26,7 @@ def with_tempdir(wrapped):
         dirname = tempfile.mkdtemp(prefix='blender-alembic-test')
         try:
             retval = wrapped(*args, pathlib.Path(dirname), **kwargs)
-        except:
+        except Exception:
             print('Exception in %s, not cleaning up temporary directory %s' % (wrapped, dirname))
             raise
         else:

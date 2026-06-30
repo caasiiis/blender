@@ -451,7 +451,7 @@ class ErrorHandlingPrinter:
                 with ensure_unwind_on_signal():
                     next_child = next(children_generator)
                 yield next_child
-        except:
+        except (StopIteration, gdb.error):
             return
 
     def display_hint(self):

@@ -5,6 +5,7 @@
 import base64
 import glob
 import inspect
+import logging
 import multiprocessing
 import os
 import pathlib
@@ -12,6 +13,8 @@ import platform
 import pickle
 import subprocess
 import sys
+
+logger = logging.getLogger(__name__)
 
 from collections.abc import (
     Callable,
@@ -158,7 +161,8 @@ class TestEnvironment:
                 complete_txt.write_text(git_hash)
         except KeyboardInterrupt as e:
             raise e
-        except:
+        except Exception as ex:
+            logger.error("Build failed: %s", ex)
             return False
 
         self._init_default_blender_executable()
@@ -388,7 +392,8 @@ class TestEnvironment:
                  '--after=' + str(after_ts - 1), '--before=' + str(before_ts),
                  '--format=%H %ct', 'HEAD'],
                 self.blender_git_dir, silent=True)
-        except:
+        except (subprocess.CalledProcessError, OSError) as ex:
+            logger.debug("Failed to list git commits: %s", ex)
             return []
         result: list[tuple[str, int]] = []
         for line in lines:
@@ -399,7 +404,7 @@ class TestEnvironment:
             if len(parts) >= 2:
                 try:
                     result.append((parts[0][:12], int(parts[1])))
-                except:
+                except (ValueError, IndexError):
                     pass
         return result
 
@@ -412,7 +417,8 @@ class TestEnvironment:
                 [self.git_executable, 'log', '-n1', '--format=%s', git_hash],
                 self.blender_git_dir, silent=True)
             title = lines[0].strip() if lines else ''
-        except:
+        except (subprocess.CalledProcessError, OSError, IndexError) as ex:
+            logger.debug("Failed to get commit title for %s: %s", git_hash, ex)
             title = ''
         self._title_cache[git_hash] = title
         return title

@@ -935,8 +935,8 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
             try:
                 with input_params_file.open('r', encoding='utf-8') as file:
                     params = json.load(file)
-            except:
-                pass
+            except (json.JSONDecodeError, OSError) as ex:
+                print(f"Warning: failed to load parameters from {input_params_file}: {ex}")
 
         # load json parameters if they exist, for export
         params_export = {}
@@ -945,8 +945,8 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
             try:
                 with output_params_file.open('r', encoding='utf-8') as file:
                     params_export = json.load(file)
-            except:
-                pass
+            except (json.JSONDecodeError, OSError) as ex:
+                print(f"Warning: failed to load export parameters from {output_params_file}: {ex}")
 
         # Generate (import, export or round-trip)
         try:
