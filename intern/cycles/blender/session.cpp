@@ -685,6 +685,16 @@ void BlenderSession::bake(blender::Depsgraph &b_depsgraph_,
   /* Initialize bake manager, before we load the baking kernels. */
   scene->bake_manager->set_baking(scene, true);
 
+  /* Read neural radiance caching settings from Cycles scene properties. */
+  {
+    blender::PointerRNA scene_rna_ptr = RNA_id_pointer_create(&b_scene->id);
+    blender::PointerRNA cscene = RNA_pointer_get(&scene_rna_ptr, "cycles");
+    scene->bake_manager->set_use_nrc(RNA_boolean_get(&cscene, "bake_use_nrc"));
+    scene->bake_manager->set_nrc_max_bounces(RNA_int_get(&cscene, "bake_nrc_max_bounces"));
+    scene->bake_manager->set_nrc_training_samples(
+        RNA_int_get(&cscene, "bake_nrc_training_samples"));
+  }
+
   session->set_display_driver(nullptr);
   session->set_output_driver(make_unique<BlenderOutputDriver>(b_engine));
   session->full_buffer_written_cb = [&](string_view filename) { full_buffer_written(filename); };

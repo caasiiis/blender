@@ -684,6 +684,11 @@ bool OptiXDevice::load_kernels(const uint kernel_features)
     group_descs[PG_RGEN_SHADE_SURFACE_RAYTRACE].raygen.entryFunctionName =
         "__raygen__kernel_optix_integrator_shade_surface_raytrace";
 
+    group_descs[PG_RGEN_SHADE_SURFACE_NRC].kind = OPTIX_PROGRAM_GROUP_KIND_RAYGEN;
+    group_descs[PG_RGEN_SHADE_SURFACE_NRC].raygen.module = shader_raytrace_module;
+    group_descs[PG_RGEN_SHADE_SURFACE_NRC].raygen.entryFunctionName =
+        "__raygen__kernel_optix_integrator_shade_surface_nrc";
+
     /* Kernels with OSL shading support are built without SVM, so can skip those direct callables
      * there. */
     if (!use_osl_shading) {
@@ -814,6 +819,9 @@ bool OptiXDevice::load_kernels(const uint kernel_features)
     pipeline_groups.reserve(NUM_PROGRAM_GROUPS);
     if (kernel_features & KERNEL_FEATURE_NODE_RAYTRACE) {
       pipeline_groups.push_back(groups[PG_RGEN_SHADE_SURFACE_RAYTRACE]);
+      if (groups[PG_RGEN_SHADE_SURFACE_NRC] != nullptr) {
+        pipeline_groups.push_back(groups[PG_RGEN_SHADE_SURFACE_NRC]);
+      }
       pipeline_groups.push_back(groups[PG_CALL_SVM_AO]);
       pipeline_groups.push_back(groups[PG_CALL_SVM_BEVEL]);
     }
@@ -1144,6 +1152,9 @@ bool OptiXDevice::load_osl_kernels()
     pipeline_groups.push_back(groups[PG_RGEN_SHADE_SURFACE]);
     if (groups[PG_RGEN_SHADE_SURFACE_RAYTRACE] != nullptr) {
       pipeline_groups.push_back(groups[PG_RGEN_SHADE_SURFACE_RAYTRACE]);
+    }
+    if (groups[PG_RGEN_SHADE_SURFACE_NRC] != nullptr) {
+      pipeline_groups.push_back(groups[PG_RGEN_SHADE_SURFACE_NRC]);
     }
     if (groups[PG_CALL_SVM_AO] != nullptr) {
       pipeline_groups.push_back(groups[PG_CALL_SVM_AO]);

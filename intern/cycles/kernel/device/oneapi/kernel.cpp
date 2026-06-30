@@ -179,6 +179,13 @@ bool oneapi_kernel_is_required_for_features(const std::string &kernel_name,
     return false;
   }
 
+  if ((kernel_features & KERNEL_FEATURE_NODE_RAYTRACE) == 0 &&
+      kernel_name.find(device_kernel_as_string(DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_NRC)) !=
+          std::string::npos)
+  {
+    return false;
+  }
+
   if ((kernel_features & KERNEL_FEATURE_MNEE) == 0 &&
       kernel_name.find(device_kernel_as_string(DEVICE_KERNEL_INTEGRATOR_INTERSECT_MNEE)) !=
           std::string::npos)
@@ -219,7 +226,9 @@ bool oneapi_kernel_is_compatible_with_hardware_raytracing(const std::string &ker
   return (kernel_name.find(device_kernel_as_string(DEVICE_KERNEL_INTEGRATOR_INTERSECT_MNEE)) ==
           std::string::npos) &&
          (kernel_name.find(device_kernel_as_string(
-              DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_RAYTRACE)) == std::string::npos);
+              DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_RAYTRACE)) == std::string::npos) &&
+         (kernel_name.find(device_kernel_as_string(
+              DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_NRC)) == std::string::npos);
 #  else
   return true;
 #  endif
@@ -470,6 +479,15 @@ bool oneapi_enqueue_kernel(KernelContext *kernel_context,
                       local_size,
                       args,
                       oneapi_kernel_integrator_shade_surface_raytrace);
+          break;
+        }
+        case DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_NRC: {
+          oneapi_call(kg,
+                      cgh,
+                      global_size,
+                      local_size,
+                      args,
+                      oneapi_kernel_integrator_shade_surface_nrc);
           break;
         }
         case DEVICE_KERNEL_INTEGRATOR_SHADE_VOLUME: {

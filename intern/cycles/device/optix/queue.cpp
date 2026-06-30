@@ -121,6 +121,10 @@ bool OptiXDeviceQueue::enqueue(DeviceKernel kernel,
       pipeline = optix_device->pipelines[PIP_SHADE];
       sbt_params.raygenRecord = sbt_data_ptr + PG_RGEN_SHADE_SURFACE_RAYTRACE * sizeof(SbtRecord);
       break;
+    case DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_NRC:
+      pipeline = optix_device->pipelines[PIP_SHADE];
+      sbt_params.raygenRecord = sbt_data_ptr + PG_RGEN_SHADE_SURFACE_NRC * sizeof(SbtRecord);
+      break;
     case DEVICE_KERNEL_INTEGRATOR_INTERSECT_MNEE:
       pipeline = optix_device->pipelines[PIP_SHADE];
       sbt_params.raygenRecord = sbt_data_ptr + PG_RGEN_INTERSECT_MNEE * sizeof(SbtRecord);

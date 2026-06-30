@@ -50,6 +50,45 @@ bool BakeManager::get_use_seed() const
   return use_seed_;
 }
 
+void BakeManager::set_use_nrc(const bool use_nrc)
+{
+  if (use_nrc_ != use_nrc) {
+    use_nrc_ = use_nrc;
+    need_update_ = true;
+  }
+}
+
+bool BakeManager::get_use_nrc() const
+{
+  return use_nrc_;
+}
+
+void BakeManager::set_nrc_max_bounces(const int max_bounces)
+{
+  if (nrc_max_bounces_ != max_bounces) {
+    nrc_max_bounces_ = max_bounces;
+    need_update_ = true;
+  }
+}
+
+int BakeManager::get_nrc_max_bounces() const
+{
+  return nrc_max_bounces_;
+}
+
+void BakeManager::set_nrc_training_samples(const int training_samples)
+{
+  if (nrc_training_samples_ != training_samples) {
+    nrc_training_samples_ = training_samples;
+    need_update_ = true;
+  }
+}
+
+int BakeManager::get_nrc_training_samples() const
+{
+  return nrc_training_samples_;
+}
+
 void BakeManager::device_update(Device * /*device*/,
                                 DeviceScene *dscene,
                                 Scene *scene,
@@ -63,6 +102,9 @@ void BakeManager::device_update(Device * /*device*/,
   memset(kbake, 0, sizeof(*kbake));
 
   kbake->use_camera = use_camera_;
+  kbake->use_nrc = use_nrc_;
+  kbake->nrc_max_bounces = nrc_max_bounces_;
+  kbake->nrc_training_samples = nrc_training_samples_;
 
   if (use_baking_) {
     const scoped_callback_timer timer([scene](double time) {

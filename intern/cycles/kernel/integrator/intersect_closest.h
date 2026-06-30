@@ -149,9 +149,14 @@ ccl_device_forceinline void integrator_split_shadow_catcher(
   const bool use_caustics = kernel_data.integrator.use_caustics &&
                             (object_flags & SD_OBJECT_CAUSTICS_RECEIVER);
   const bool use_raytrace_kernel = (flags & SD_HAS_RAYTRACE);
+  const bool use_nrc_kernel = kernel_data.bake.use_nrc;
 
   if (use_caustics) {
     integrator_path_init(state, DEVICE_KERNEL_INTEGRATOR_INTERSECT_MNEE);
+  }
+  else if (use_nrc_kernel) {
+    integrator_path_init_sorted(
+        kg, state, DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_NRC, shader);
   }
   else if (use_raytrace_kernel) {
     integrator_path_init_sorted(
@@ -178,9 +183,14 @@ ccl_device_forceinline void integrator_intersect_next_kernel_after_shadow_catche
   const bool use_caustics = kernel_data.integrator.use_caustics &&
                             (object_flags & SD_OBJECT_CAUSTICS_RECEIVER);
   const bool use_raytrace_kernel = (flags & SD_HAS_RAYTRACE);
+  const bool use_nrc_kernel = kernel_data.bake.use_nrc;
 
   if (use_caustics) {
     integrator_path_next(state, current_kernel, DEVICE_KERNEL_INTEGRATOR_INTERSECT_MNEE);
+  }
+  else if (use_nrc_kernel) {
+    integrator_path_next_sorted(
+        kg, state, current_kernel, DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_NRC, shader);
   }
   else if (use_raytrace_kernel) {
     integrator_path_next_sorted(
@@ -262,8 +272,13 @@ ccl_device_forceinline void integrator_intersect_next_kernel(
         const bool use_caustics = kernel_data.integrator.use_caustics &&
                                   (object_flags & SD_OBJECT_CAUSTICS_RECEIVER);
         const bool use_raytrace_kernel = (flags & SD_HAS_RAYTRACE);
+        const bool use_nrc_kernel = kernel_data.bake.use_nrc;
         if (use_caustics) {
           integrator_path_next(state, current_kernel, DEVICE_KERNEL_INTEGRATOR_INTERSECT_MNEE);
+        }
+        else if (use_nrc_kernel) {
+          integrator_path_next_sorted(
+              kg, state, current_kernel, DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_NRC, shader);
         }
         else if (use_raytrace_kernel) {
           integrator_path_next_sorted(
@@ -320,9 +335,14 @@ ccl_device_forceinline void integrator_intersect_next_kernel_after_volume(
     const bool use_caustics = kernel_data.integrator.use_caustics &&
                               (object_flags & SD_OBJECT_CAUSTICS_RECEIVER);
     const bool use_raytrace_kernel = (flags & SD_HAS_RAYTRACE);
+    const bool use_nrc_kernel = kernel_data.bake.use_nrc;
 
     if (use_caustics) {
       integrator_path_next(state, current_kernel, DEVICE_KERNEL_INTEGRATOR_INTERSECT_MNEE);
+    }
+    else if (use_nrc_kernel) {
+      integrator_path_next_sorted(
+          kg, state, current_kernel, DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_NRC, shader);
     }
     else if (use_raytrace_kernel) {
       integrator_path_next_sorted(

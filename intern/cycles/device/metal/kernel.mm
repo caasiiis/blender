@@ -262,6 +262,13 @@ bool ShaderCache::should_load_kernel(DeviceKernel device_kernel,
     }
   }
 
+  if (device_kernel == DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_NRC) {
+    if ((device->kernel_features & KERNEL_FEATURE_NODE_RAYTRACE) == 0) {
+      /* Skip shade_surface_nrc kernel if the scene doesn't require it. */
+      return false;
+    }
+  }
+
   if (device_kernel == DEVICE_KERNEL_INTEGRATOR_INTERSECT_MNEE) {
     if ((device->kernel_features & KERNEL_FEATURE_MNEE) == 0) {
       /* Skip the MNEE kernel if the scene doesn't require it. */

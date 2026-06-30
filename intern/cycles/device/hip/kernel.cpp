@@ -64,6 +64,7 @@ void HIPDeviceKernels::load_raytrace(HIPDevice *device, hipModule_t hip_module)
   load_kernel(device, hip_module, DEVICE_KERNEL_INTEGRATOR_INTERSECT_MNEE);
 
   load_kernel(device, hip_module, DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_RAYTRACE);
+  load_kernel(device, hip_module, DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_NRC);
 }
 
 const HIPDeviceKernel &HIPDeviceKernels::get(DeviceKernel kernel) const
