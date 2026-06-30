@@ -5,7 +5,7 @@
 import bpy
 from bpy.types import Menu, Panel, UIList
 from rna_prop_ui import PropertyPanel
-from bl_ui.utils import PresetPanel
+from bl_ui.utils import COMPAT_ENGINES_WORKBENCH, PresetPanel
 from bl_ui.space_properties import PropertiesAnimationMixin
 
 from bl_ui.properties_grease_pencil_common import (
@@ -285,7 +285,7 @@ class MATERIAL_PT_gpencil_preview(GPMaterialButtonsPanel, Panel):
 
 
 class MATERIAL_PT_gpencil_custom_props(GPMaterialButtonsPanel, PropertyPanel, Panel):
-    COMPAT_ENGINES = {'BLENDER_WORKBENCH'}
+    COMPAT_ENGINES = COMPAT_ENGINES_WORKBENCH
     _context_path = "object.active_material"
     _property_type = bpy.types.Material
 

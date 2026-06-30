@@ -11,7 +11,13 @@ from bl_ui.space_view3d import (
     VIEW3D_PT_shading_options,
     VIEW3D_PT_shading_cavity,
 )
-from bl_ui.utils import PresetPanel
+from bl_ui.utils import (
+    COMPAT_ENGINES_ALL,
+    COMPAT_ENGINES_EEVEE,
+    COMPAT_ENGINES_EEVEE_WORKBENCH,
+    COMPAT_ENGINES_WORKBENCH,
+    PresetPanel,
+)
 
 
 class RenderButtonsPanel:
@@ -52,11 +58,7 @@ class RENDER_PT_color_management(RenderButtonsPanel, Panel):
     bl_label = "Color Management"
     bl_options = {'DEFAULT_CLOSED'}
     bl_order = 100
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         import gpu
@@ -96,11 +98,7 @@ class RENDER_PT_color_management_working_space(RenderButtonsPanel, Panel):
     bl_label = "Working Space"
     bl_parent_id = "RENDER_PT_color_management"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -136,11 +134,7 @@ class RENDER_PT_color_management_advanced(RenderButtonsPanel, Panel):
     bl_label = "Advanced"
     bl_parent_id = "RENDER_PT_color_management"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -158,11 +152,7 @@ class RENDER_PT_color_management_curves(RenderButtonsPanel, Panel):
     bl_label = "Curves"
     bl_parent_id = "RENDER_PT_color_management"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw_header(self, context):
 
@@ -196,11 +186,7 @@ class RENDER_PT_color_management_white_balance(RenderButtonsPanel, Panel):
     bl_label = "White Balance"
     bl_parent_id = "RENDER_PT_color_management"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw_header(self, context):
         scene = context.scene
@@ -235,7 +221,7 @@ class RENDER_PT_color_management_white_balance(RenderButtonsPanel, Panel):
 class RENDER_PT_eevee_motion_blur(RenderButtonsPanel, Panel):
     bl_label = "Motion Blur"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -267,7 +253,7 @@ class RENDER_PT_eevee_motion_blur_curve(RenderButtonsPanel, Panel):
     bl_label = "Shutter Curve"
     bl_parent_id = "RENDER_PT_eevee_motion_blur"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw(self, context):
         layout = self.layout
@@ -295,7 +281,7 @@ class RENDER_PT_eevee_motion_blur_curve(RenderButtonsPanel, Panel):
 class RENDER_PT_eevee_depth_of_field(RenderButtonsPanel, Panel):
     bl_label = "Depth of Field"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -325,7 +311,7 @@ class RENDER_PT_eevee_depth_of_field(RenderButtonsPanel, Panel):
 class RENDER_PT_eevee_volumes(RenderButtonsPanel, Panel):
     bl_label = "Volumes"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -352,7 +338,7 @@ class RENDER_PT_eevee_volumes_range(RenderButtonsPanel, Panel):
     bl_label = "Custom Range"
     bl_options = {'DEFAULT_CLOSED'}
     bl_parent_id = "RENDER_PT_eevee_volumes"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -387,7 +373,7 @@ class RENDER_PT_eevee_raytracing_presets(PresetPanel, Panel):
 class RENDER_PT_eevee_raytracing(RenderButtonsPanel, Panel):
     bl_label = "Raytracing"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -421,7 +407,7 @@ class RENDER_PT_eevee_screen_trace(RenderButtonsPanel, Panel):
     bl_label = "Screen Tracing"
     bl_options = {'DEFAULT_CLOSED'}
     bl_parent_id = "RENDER_PT_eevee_raytracing"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -460,7 +446,7 @@ class RENDER_PT_eevee_gi_approximation(RenderButtonsPanel, Panel):
     bl_label = "Fast GI Approximation"
     bl_options = {'DEFAULT_CLOSED'}
     bl_parent_id = "RENDER_PT_eevee_raytracing"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -507,7 +493,7 @@ class RENDER_PT_eevee_denoise(RenderButtonsPanel, Panel):
     bl_label = "Denoising"
     bl_options = {'DEFAULT_CLOSED'}
     bl_parent_id = "RENDER_PT_eevee_raytracing"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -546,7 +532,7 @@ class RENDER_PT_eevee_denoise(RenderButtonsPanel, Panel):
 class RENDER_PT_eevee_light_paths(RenderButtonsPanel, Panel):
     bl_label = "Light Paths"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -559,7 +545,7 @@ class RENDER_PT_eevee_light_paths(RenderButtonsPanel, Panel):
 class RENDER_PT_eevee_clamping(RenderButtonsPanel, Panel):
     bl_label = "Clamping"
     bl_parent_id = "RENDER_PT_eevee_light_paths"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -572,7 +558,7 @@ class RENDER_PT_eevee_clamping(RenderButtonsPanel, Panel):
 class RENDER_PT_eevee_clamping_surface(RenderButtonsPanel, Panel):
     bl_label = "Surface"
     bl_parent_id = "RENDER_PT_eevee_clamping"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -593,7 +579,7 @@ class RENDER_PT_eevee_clamping_surface(RenderButtonsPanel, Panel):
 class RENDER_PT_eevee_clamping_volume(RenderButtonsPanel, Panel):
     bl_label = "Volume"
     bl_parent_id = "RENDER_PT_eevee_clamping"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -614,7 +600,7 @@ class RENDER_PT_eevee_clamping_volume(RenderButtonsPanel, Panel):
 class RENDER_PT_eevee_light_paths_intensity(RenderButtonsPanel, Panel):
     bl_label = "Intensity"
     bl_parent_id = "RENDER_PT_eevee_light_paths"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -636,7 +622,7 @@ class RENDER_PT_eevee_sampling_shadows(RenderButtonsPanel, Panel):
     bl_label = "Shadows"
     bl_parent_id = "RENDER_PT_eevee_sampling"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -674,7 +660,7 @@ class RENDER_PT_eevee_sampling_shadows(RenderButtonsPanel, Panel):
 
 class RENDER_PT_eevee_sampling(RenderButtonsPanel, Panel):
     bl_label = "Sampling"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -687,7 +673,7 @@ class RENDER_PT_eevee_sampling(RenderButtonsPanel, Panel):
 class RENDER_PT_eevee_sampling_viewport(RenderButtonsPanel, Panel):
     bl_label = "Viewport"
     bl_parent_id = "RENDER_PT_eevee_sampling"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -712,7 +698,7 @@ class RENDER_PT_eevee_sampling_viewport(RenderButtonsPanel, Panel):
 class RENDER_PT_eevee_sampling_render(RenderButtonsPanel, Panel):
     bl_label = "Render"
     bl_parent_id = "RENDER_PT_eevee_sampling"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -736,7 +722,7 @@ class RENDER_PT_eevee_sampling_advanced(RenderButtonsPanel, Panel):
     bl_label = "Advanced"
     bl_parent_id = "RENDER_PT_eevee_sampling"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -757,7 +743,7 @@ class RENDER_PT_eevee_sampling_advanced(RenderButtonsPanel, Panel):
 class RENDER_PT_eevee_film(RenderButtonsPanel, Panel):
     bl_label = "Film"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -799,7 +785,7 @@ def draw_curves_settings(self, context):
 class RENDER_PT_eevee_hair(RenderButtonsPanel, Panel):
     bl_label = "Curves"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE', 'BLENDER_WORKBENCH'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE_WORKBENCH
 
     @classmethod
     def poll(cls, context):
@@ -812,10 +798,7 @@ class RENDER_PT_eevee_hair(RenderButtonsPanel, Panel):
 class RENDER_PT_eevee_performance(RenderButtonsPanel, Panel):
     bl_label = "Performance"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE_WORKBENCH
 
     @classmethod
     def poll(cls, context):
@@ -872,10 +855,7 @@ class CompositorDenoisePerformanceButtonsPanel:
 class RENDER_PT_eevee_performance_compositor(RenderButtonsPanel, CompositorPerformanceButtonsPanel, Panel):
     bl_options = {'DEFAULT_CLOSED'}
     bl_parent_id = "RENDER_PT_eevee_performance"
-    COMPAT_ENGINES = {
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE_WORKBENCH
 
 
 class RENDER_PT_eevee_performance_compositor_denoise_settings(
@@ -883,17 +863,14 @@ class RENDER_PT_eevee_performance_compositor_denoise_settings(
 ):
     bl_options = {'DEFAULT_CLOSED'}
     bl_parent_id = "RENDER_PT_eevee_performance_compositor"
-    COMPAT_ENGINES = {
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE_WORKBENCH
 
 
 class RENDER_PT_eevee_performance_memory(RenderButtonsPanel, Panel):
     bl_label = "Memory"
     bl_parent_id = "RENDER_PT_eevee_performance"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -915,7 +892,7 @@ class RENDER_PT_eevee_performance_viewport(RenderButtonsPanel, Panel):
     bl_label = "Viewport"
     bl_parent_id = "RENDER_PT_eevee_performance"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -938,11 +915,7 @@ class RENDER_PT_gpencil(RenderButtonsPanel, Panel):
     bl_label = "Grease Pencil"
     bl_options = {'DEFAULT_CLOSED'}
     bl_order = 10
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     @classmethod
     def poll(cls, context):
@@ -956,11 +929,7 @@ class RENDER_PT_grease_pencil_viewport(RenderButtonsPanel, Panel):
     bl_label = "Viewport"
     bl_options = {'DEFAULT_CLOSED'}
     bl_parent_id = "RENDER_PT_gpencil"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -978,11 +947,7 @@ class RENDER_PT_grease_pencil_render(RenderButtonsPanel, Panel):
     bl_label = "Render"
     bl_options = {'DEFAULT_CLOSED'}
     bl_parent_id = "RENDER_PT_gpencil"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -1003,7 +968,7 @@ class RENDER_PT_grease_pencil_render(RenderButtonsPanel, Panel):
 
 class RENDER_PT_opengl_sampling(RenderButtonsPanel, Panel):
     bl_label = "Sampling"
-    COMPAT_ENGINES = {'BLENDER_WORKBENCH'}
+    COMPAT_ENGINES = COMPAT_ENGINES_WORKBENCH
 
     @classmethod
     def poll(cls, context):
@@ -1025,7 +990,7 @@ class RENDER_PT_opengl_sampling(RenderButtonsPanel, Panel):
 class RENDER_PT_opengl_film(RenderButtonsPanel, Panel):
     bl_label = "Film"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_WORKBENCH'}
+    COMPAT_ENGINES = COMPAT_ENGINES_WORKBENCH
 
     def draw(self, context):
         layout = self.layout
@@ -1038,7 +1003,7 @@ class RENDER_PT_opengl_film(RenderButtonsPanel, Panel):
 
 class RENDER_PT_opengl_lighting(RenderButtonsPanel, Panel):
     bl_label = "Lighting"
-    COMPAT_ENGINES = {'BLENDER_WORKBENCH'}
+    COMPAT_ENGINES = COMPAT_ENGINES_WORKBENCH
 
     @classmethod
     def poll(cls, context):
@@ -1050,7 +1015,7 @@ class RENDER_PT_opengl_lighting(RenderButtonsPanel, Panel):
 
 class RENDER_PT_opengl_color(RenderButtonsPanel, Panel):
     bl_label = "Object Color"
-    COMPAT_ENGINES = {'BLENDER_WORKBENCH'}
+    COMPAT_ENGINES = COMPAT_ENGINES_WORKBENCH
 
     @classmethod
     def poll(cls, context):
@@ -1062,7 +1027,7 @@ class RENDER_PT_opengl_color(RenderButtonsPanel, Panel):
 
 class RENDER_PT_opengl_options(RenderButtonsPanel, Panel):
     bl_label = "Options"
-    COMPAT_ENGINES = {'BLENDER_WORKBENCH'}
+    COMPAT_ENGINES = COMPAT_ENGINES_WORKBENCH
 
     @classmethod
     def poll(cls, context):
@@ -1079,11 +1044,7 @@ class RENDER_PT_opengl_options(RenderButtonsPanel, Panel):
 class RENDER_PT_simplify(RenderButtonsPanel, Panel):
     bl_label = "Simplify"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw_header(self, context):
         rd = context.scene.render
@@ -1096,11 +1057,7 @@ class RENDER_PT_simplify(RenderButtonsPanel, Panel):
 class RENDER_PT_simplify_viewport(RenderButtonsPanel, Panel):
     bl_label = "Viewport"
     bl_parent_id = "RENDER_PT_simplify"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -1128,11 +1085,7 @@ class RENDER_PT_simplify_viewport(RenderButtonsPanel, Panel):
 class RENDER_PT_simplify_render(RenderButtonsPanel, Panel):
     bl_label = "Render"
     bl_parent_id = "RENDER_PT_simplify"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -1154,11 +1107,7 @@ class RENDER_PT_simplify_render(RenderButtonsPanel, Panel):
 class RENDER_PT_simplify_greasepencil(RenderButtonsPanel, Panel, GreasePencilSimplifyPanel):
     bl_label = "Grease Pencil"
     bl_parent_id = "RENDER_PT_simplify"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
     bl_options = {'DEFAULT_CLOSED'}
 
 

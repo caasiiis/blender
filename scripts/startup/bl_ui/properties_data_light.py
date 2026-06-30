@@ -7,12 +7,16 @@ from bpy.app.translations import contexts as i18n_contexts
 from bpy.types import Panel
 from rna_prop_ui import PropertyPanel
 from bl_ui.space_properties import PropertiesAnimationMixin
+from bl_ui.utils import (
+    COMPAT_ENGINES_ALL,
+    COMPAT_ENGINES_EEVEE,
+    COMPAT_ENGINES_RENDER_EEVEE,
+    COMPAT_ENGINES_RENDER_WORKBENCH,
+    DataButtonsPanelBase,
+)
 
 
-class DataButtonsPanel:
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = "data"
+class DataButtonsPanel(DataButtonsPanelBase):
 
     @classmethod
     def poll(cls, context):
@@ -23,11 +27,7 @@ class DataButtonsPanel:
 class DATA_PT_context_light(DataButtonsPanel, Panel):
     bl_label = ""
     bl_options = {'HIDE_HEADER'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -45,10 +45,7 @@ class DATA_PT_context_light(DataButtonsPanel, Panel):
 class DATA_PT_preview(DataButtonsPanel, Panel):
     bl_label = "Preview"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_RENDER_EEVEE
 
     def draw(self, context):
         self.layout.template_preview(context.light)
@@ -56,7 +53,7 @@ class DATA_PT_preview(DataButtonsPanel, Panel):
 
 class DATA_PT_light(DataButtonsPanel, Panel):
     bl_label = "Light"
-    COMPAT_ENGINES = {'BLENDER_RENDER', 'BLENDER_WORKBENCH'}
+    COMPAT_ENGINES = COMPAT_ENGINES_RENDER_WORKBENCH
 
     def draw(self, context):
         layout = self.layout
@@ -74,7 +71,7 @@ class DATA_PT_light(DataButtonsPanel, Panel):
 
 class DATA_PT_EEVEE_light(DataButtonsPanel, Panel):
     bl_label = "Light"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw(self, context):
         layout = self.layout
@@ -143,7 +140,7 @@ class DATA_PT_EEVEE_light_distance(DataButtonsPanel, Panel):
     bl_label = "Custom Distance"
     bl_parent_id = "DATA_PT_EEVEE_light"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -171,7 +168,7 @@ class DATA_PT_EEVEE_light_shadow(DataButtonsPanel, Panel):
     bl_label = "Shadow"
     bl_parent_id = "DATA_PT_EEVEE_light"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw_header(self, context):
         light = context.light
@@ -205,7 +202,7 @@ class DATA_PT_EEVEE_light_influence(DataButtonsPanel, Panel):
     bl_label = "Influence"
     bl_parent_id = "DATA_PT_EEVEE_light"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw(self, context):
         layout = self.layout
@@ -235,11 +232,7 @@ class DATA_PT_EEVEE_light_influence(DataButtonsPanel, Panel):
 class DATA_PT_spot(DataButtonsPanel, Panel):
     bl_label = "Beam Shape"
     bl_parent_id = "DATA_PT_EEVEE_light"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     @classmethod
     def poll(cls, context):
@@ -262,11 +255,7 @@ class DATA_PT_spot(DataButtonsPanel, Panel):
 
 
 class DATA_PT_light_animation(DataButtonsPanel, PropertiesAnimationMixin, PropertyPanel, Panel):
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -287,11 +276,7 @@ class DATA_PT_light_animation(DataButtonsPanel, PropertiesAnimationMixin, Proper
 
 
 class DATA_PT_custom_props_light(DataButtonsPanel, PropertyPanel, Panel):
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
     _context_path = "object.data"
     _property_type = bpy.types.Light
 

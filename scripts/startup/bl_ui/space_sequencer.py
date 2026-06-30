@@ -23,6 +23,7 @@ from bl_ui.space_toolsystem_common import (
 from rna_prop_ui import PropertyPanel
 from bl_ui.space_time import playback_controls
 from bl_ui.properties_data_camera import DATA_PT_camera_display_composition_guides
+from bl_ui.utils import COMPAT_ENGINES_RENDER_WORKBENCH
 
 
 def _space_view_types(st):
@@ -1984,10 +1985,7 @@ class SEQUENCER_PT_annotation_onion(AnnotationOnionSkin, SequencerButtonsPanel_O
 
 
 class SEQUENCER_PT_custom_props(SequencerButtonsPanel, PropertyPanel, Panel):
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_RENDER_WORKBENCH
     _context_path = "active_strip"
     _property_type = (bpy.types.Strip,)
     bl_category = "Strip"

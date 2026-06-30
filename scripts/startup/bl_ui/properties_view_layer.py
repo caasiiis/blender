@@ -6,6 +6,12 @@ from bpy.types import Menu, Panel, UIList, ViewLayer
 from bpy.app.translations import contexts as i18n_contexts
 
 from rna_prop_ui import PropertyPanel
+from bl_ui.utils import (
+    COMPAT_ENGINES_ALL,
+    COMPAT_ENGINES_EEVEE,
+    COMPAT_ENGINES_EEVEE_WORKBENCH,
+    COMPAT_ENGINES_WORKBENCH,
+)
 
 
 class VIEWLAYER_UL_aov(UIList):
@@ -51,11 +57,7 @@ class ViewLayerButtonsPanel:
 class VIEWLAYER_PT_context_layer(ViewLayerButtonsPanel, Panel):
     bl_label = ""
     bl_options = {'HIDE_HEADER'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     @classmethod
     def poll(cls, context):
@@ -77,11 +79,7 @@ class VIEWLAYER_PT_context_layer(ViewLayerButtonsPanel, Panel):
 
 class VIEWLAYER_PT_layer(ViewLayerButtonsPanel, Panel):
     bl_label = "View Layer"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -99,10 +97,7 @@ class VIEWLAYER_PT_layer(ViewLayerButtonsPanel, Panel):
 
 class VIEWLAYER_PT_layer_passes(ViewLayerButtonsPanel, Panel):
     bl_label = "Passes"
-    COMPAT_ENGINES = {
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE_WORKBENCH
 
     def draw(self, context):
         pass
@@ -112,7 +107,7 @@ class VIEWLAYER_PT_eevee_layer_passes_data(ViewLayerButtonsPanel, Panel):
     bl_label = "Data"
     bl_parent_id = "VIEWLAYER_PT_layer_passes"
 
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw(self, context):
         layout = self.layout
@@ -138,7 +133,7 @@ class VIEWLAYER_PT_workbench_layer_passes_data(ViewLayerButtonsPanel, Panel):
     bl_label = "Data"
     bl_parent_id = "VIEWLAYER_PT_layer_passes"
 
-    COMPAT_ENGINES = {'BLENDER_WORKBENCH'}
+    COMPAT_ENGINES = COMPAT_ENGINES_WORKBENCH
 
     def draw(self, context):
         layout = self.layout
@@ -157,7 +152,7 @@ class VIEWLAYER_PT_eevee_layer_passes_light(ViewLayerButtonsPanel, Panel):
     bl_label = "Light"
     bl_translation_context = i18n_contexts.render_layer
     bl_parent_id = "VIEWLAYER_PT_layer_passes"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw(self, context):
         layout = self.layout
@@ -218,7 +213,7 @@ class ViewLayerAOVPanelHelper(ViewLayerButtonsPanel):
 
 class VIEWLAYER_PT_layer_passes_aov(ViewLayerAOVPanelHelper, Panel):
     bl_parent_id = "VIEWLAYER_PT_layer_passes"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
 
 class ViewLayerCryptomattePanelHelper(ViewLayerButtonsPanel):
@@ -247,7 +242,7 @@ class ViewLayerCryptomattePanelHelper(ViewLayerButtonsPanel):
 
 class VIEWLAYER_PT_layer_passes_cryptomatte(ViewLayerCryptomattePanelHelper, Panel):
     bl_parent_id = "VIEWLAYER_PT_layer_passes"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
 
 class VIEWLAYER_MT_lightgroup_sync(Menu):
@@ -294,7 +289,7 @@ class VIEWLAYER_PT_layer_passes_lightgroups(ViewLayerLightgroupsPanelHelper, Pan
 class VIEWLAYER_PT_filter(ViewLayerButtonsPanel, Panel):
     bl_label = "Filter"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw(self, context):
         layout = self.layout

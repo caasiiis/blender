@@ -9,6 +9,7 @@ from bpy.types import (
 from bpy.app.translations import (
     contexts as i18n_contexts,
 )
+from bl_ui.utils import COMPAT_ENGINES_ALL
 
 
 class PhysicButtonsPanel:
@@ -55,11 +56,7 @@ def physics_add_special(layout, data, name, addop, removeop, typeicon):
 class PHYSICS_PT_add(PhysicButtonsPanel, Panel):
     bl_label = ""
     bl_options = {'HIDE_HEADER'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout

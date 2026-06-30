@@ -9,6 +9,7 @@ from rna_prop_ui import PropertyPanel
 from bpy_extras.node_utils import find_node_input
 
 from bl_ui.space_properties import PropertiesAnimationMixin
+from bl_ui.utils import COMPAT_ENGINES_ALL, COMPAT_ENGINES_EEVEE, COMPAT_ENGINES_EEVEE_WORKBENCH
 
 
 class MATERIAL_MT_context_menu(Menu):
@@ -56,18 +57,14 @@ class MaterialButtonsPanel:
 class MATERIAL_PT_preview(MaterialButtonsPanel, Panel):
     bl_label = "Preview"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw(self, context):
         self.layout.template_preview(context.material)
 
 
 class MATERIAL_PT_custom_props(MaterialButtonsPanel, PropertyPanel, Panel):
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
     _context_path = "material"
     _property_type = bpy.types.Material
 
@@ -76,10 +73,7 @@ class EEVEE_MATERIAL_PT_context_material(MaterialButtonsPanel, Panel):
     bl_label = ""
     bl_context = "material"
     bl_options = {'HIDE_HEADER'}
-    COMPAT_ENGINES = {
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE_WORKBENCH
 
     @classmethod
     def poll(cls, context):
@@ -163,7 +157,7 @@ def panel_node_draw(layout, ntree, _output_type, input_name):
 class EEVEE_MATERIAL_PT_surface(MaterialButtonsPanel, Panel):
     bl_label = "Surface"
     bl_context = "material"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw(self, context):
         layout = self.layout
@@ -179,7 +173,7 @@ class EEVEE_MATERIAL_PT_volume(MaterialButtonsPanel, Panel):
     bl_translation_context = i18n_contexts.id_id
     bl_context = "material"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -201,7 +195,7 @@ class EEVEE_MATERIAL_PT_displacement(MaterialButtonsPanel, Panel):
     bl_label = "Displacement"
     bl_context = "material"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -224,7 +218,7 @@ class EEVEE_MATERIAL_PT_thickness(MaterialButtonsPanel, Panel):
     bl_translation_context = i18n_contexts.id_material
     bl_context = "material"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):
@@ -306,7 +300,7 @@ class EEVEE_MATERIAL_PT_viewport_settings(MaterialButtonsPanel, Panel):
 class EEVEE_MATERIAL_PT_settings(MaterialButtonsPanel, Panel):
     bl_label = "Settings"
     bl_context = "material"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw(self, context):
         layout = self.layout
@@ -322,7 +316,7 @@ class EEVEE_MATERIAL_PT_settings_surface(MaterialButtonsPanel, Panel):
     bl_label = "Surface"
     bl_context = "material"
     bl_parent_id = "EEVEE_MATERIAL_PT_settings"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw(self, context):
         layout = self.layout
@@ -338,7 +332,7 @@ class EEVEE_MATERIAL_PT_settings_volume(MaterialButtonsPanel, Panel):
     bl_label = "Volume"
     bl_context = "material"
     bl_parent_id = "EEVEE_MATERIAL_PT_settings"
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     def draw(self, context):
         layout = self.layout
@@ -411,11 +405,7 @@ class MATERIAL_PT_lineart(MaterialButtonsPanel, Panel):
 
 
 class MATERIAL_PT_animation(MaterialButtonsPanel, Panel, PropertiesAnimationMixin):
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout

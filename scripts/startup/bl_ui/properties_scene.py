@@ -17,6 +17,7 @@ from bl_ui.properties_physics_common import (
 )
 
 from bpy.app.translations import pgettext_iface as iface_
+from bl_ui.utils import COMPAT_ENGINES_EEVEE
 
 
 class SCENE_UL_keying_set_paths(UIList):
@@ -425,7 +426,7 @@ class SCENE_PT_rigid_body_field_weights(RigidBodySubPanel, Panel):
 class SCENE_PT_eevee_light_probes(SceneButtonsPanel, Panel):
     bl_label = "Light Probes"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {'BLENDER_EEVEE'}
+    COMPAT_ENGINES = COMPAT_ENGINES_EEVEE
 
     @classmethod
     def poll(cls, context):

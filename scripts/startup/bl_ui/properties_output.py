@@ -4,7 +4,7 @@
 
 import bpy
 from bpy.types import Menu, Panel, UIList
-from bl_ui.utils import PresetPanel
+from bl_ui.utils import COMPAT_ENGINES_ALL, PresetPanel
 
 from bpy.app.translations import (
     contexts as i18n_contexts,
@@ -52,11 +52,7 @@ class RenderOutputButtonsPanel:
 
 class RENDER_PT_format(RenderOutputButtonsPanel, Panel):
     bl_label = "Format"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     _frame_rate_args_prev = None
     _preset_class = None
@@ -134,11 +130,7 @@ class RENDER_PT_format(RenderOutputButtonsPanel, Panel):
 
 class RENDER_PT_frame_range(RenderOutputButtonsPanel, Panel):
     bl_label = "Frame Range"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -157,11 +149,7 @@ class RENDER_PT_time_stretching(RenderOutputButtonsPanel, Panel):
     bl_label = "Time Stretching"
     bl_parent_id = "RENDER_PT_frame_range"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -178,11 +166,7 @@ class RENDER_PT_time_stretching(RenderOutputButtonsPanel, Panel):
 class RENDER_PT_post_processing(RenderOutputButtonsPanel, Panel):
     bl_label = "Post Processing"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -200,11 +184,7 @@ class RENDER_PT_post_processing(RenderOutputButtonsPanel, Panel):
 class RENDER_PT_stamp(RenderOutputButtonsPanel, Panel):
     bl_label = "Metadata"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         layout = self.layout
@@ -238,11 +218,7 @@ class RENDER_PT_stamp_note(RenderOutputButtonsPanel, Panel):
     bl_label = "Note"
     bl_parent_id = "RENDER_PT_stamp"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw_header(self, context):
         rd = context.scene.render
@@ -262,11 +238,7 @@ class RENDER_PT_stamp_burn(RenderOutputButtonsPanel, Panel):
     bl_label = "Burn Into Image"
     bl_parent_id = "RENDER_PT_stamp"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw_header(self, context):
         rd = context.scene.render
@@ -290,11 +262,7 @@ class RENDER_PT_stamp_burn(RenderOutputButtonsPanel, Panel):
 
 class RENDER_PT_output(RenderOutputButtonsPanel, Panel):
     bl_label = "Output"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw_header(self, context):
         rd = context.scene.render
@@ -328,11 +296,7 @@ class RENDER_PT_output(RenderOutputButtonsPanel, Panel):
 class RENDER_PT_output_views(RenderOutputButtonsPanel, Panel):
     bl_label = "Views"
     bl_parent_id = "RENDER_PT_output"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     @classmethod
     def poll(cls, context):
@@ -352,11 +316,7 @@ class RENDER_PT_output_color_management(RenderOutputButtonsPanel, Panel):
     bl_label = "Color Management"
     bl_options = {'DEFAULT_CLOSED'}
     bl_parent_id = "RENDER_PT_output"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw(self, context):
         scene = context.scene
@@ -398,11 +358,7 @@ class RENDER_PT_output_pixel_density(RenderOutputButtonsPanel, Panel):
     bl_options = {'DEFAULT_CLOSED'}
     bl_parent_id = "RENDER_PT_output"
 
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     _pixel_density_args_prev = None
     _preset_class = None
@@ -474,11 +430,7 @@ class RENDER_PT_encoding(RenderOutputButtonsPanel, Panel):
     bl_label = "Encoding"
     bl_parent_id = "RENDER_PT_output"
     bl_options = {'DEFAULT_CLOSED'}
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     def draw_header_preset(self, _context):
         RENDER_PT_ffmpeg_presets.draw_panel_header(self.layout)
@@ -503,11 +455,7 @@ class RENDER_PT_encoding(RenderOutputButtonsPanel, Panel):
 class RENDER_PT_encoding_video(RenderOutputButtonsPanel, Panel):
     bl_label = "Video"
     bl_parent_id = "RENDER_PT_encoding"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     @classmethod
     def poll(cls, context):
@@ -633,11 +581,7 @@ class RENDER_PT_encoding_video(RenderOutputButtonsPanel, Panel):
 class RENDER_PT_encoding_audio(RenderOutputButtonsPanel, Panel):
     bl_label = "Audio"
     bl_parent_id = "RENDER_PT_encoding"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
 
     @classmethod
     def poll(cls, context):
@@ -675,11 +619,7 @@ class RENDER_UL_renderviews(UIList):
 
 class RENDER_PT_stereoscopy(RenderOutputButtonsPanel, Panel):
     bl_label = "Stereoscopy"
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_EEVEE',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_ALL
     bl_options = {'DEFAULT_CLOSED'}
 
     def draw_header(self, context):

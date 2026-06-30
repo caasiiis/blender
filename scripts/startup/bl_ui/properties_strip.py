@@ -11,7 +11,7 @@ from bpy.app.translations import (
     pgettext_rpt as rpt_,
 )
 from rna_prop_ui import PropertyPanel
-from bl_ui.utils import PresetPanel
+from bl_ui.utils import COMPAT_ENGINES_RENDER_WORKBENCH, PresetPanel
 
 
 class StripButtonsPanel:
@@ -1099,10 +1099,7 @@ class STRIP_PT_adjust_color(StripButtonsPanel, Panel):
 
 
 class STRIP_PT_custom_props(StripButtonsPanel, PropertyPanel, Panel):
-    COMPAT_ENGINES = {
-        'BLENDER_RENDER',
-        'BLENDER_WORKBENCH',
-    }
+    COMPAT_ENGINES = COMPAT_ENGINES_RENDER_WORKBENCH
     _context_path = "active_strip"
     _property_type = (bpy.types.Strip,)
 
