@@ -94,3 +94,16 @@ endif()
 
 blender_add_lib_nolist(bf_render "${SRC}" "${INC}" "${INC_SYS}" "${LIB}")
 add_library(bf::render ALIAS bf_render)
+
+if(WITH_GTESTS)
+  set(TEST_INC
+  )
+  set(TEST_SRC
+    tests/RE_tile_highlight_test.cc
+  )
+  set(TEST_LIB
+    ${LIB}
+    bf_render
+  )
+  blender_add_test_suite_lib(render "${TEST_SRC}" "${INC};${TEST_INC}" "${INC_SYS}" "${TEST_LIB}")
+endif()

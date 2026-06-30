@@ -151,3 +151,16 @@ add_library(bf::sequencer ALIAS bf_sequencer)
 
 # RNA_prototypes.hh
 add_dependencies(bf_sequencer bf_rna)
+
+if(WITH_GTESTS)
+  set(TEST_INC
+  )
+  set(TEST_SRC
+    tests/SEQ_effects_test.cc
+  )
+  set(TEST_LIB
+    ${LIB}
+    bf_sequencer
+  )
+  blender_add_test_suite_lib(sequencer "${TEST_SRC}" "${INC};${TEST_INC}" "${INC_SYS}" "${TEST_LIB}")
+endif()
