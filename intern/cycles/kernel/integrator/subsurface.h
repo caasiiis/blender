@@ -220,11 +220,19 @@ ccl_device_inline bool subsurface_scatter(KernelGlobals kg, IntegratorState stat
   const bool use_caustics = kernel_data.integrator.use_caustics &&
                             (object_flags & SD_OBJECT_CAUSTICS_RECEIVER);
   const bool use_raytrace_kernel = (shader_flags & SD_HAS_RAYTRACE);
+  const bool use_nrc_kernel = kernel_data.bake.use_nrc;
 
   if (use_caustics) {
     integrator_path_next(state,
                          DEVICE_KERNEL_INTEGRATOR_INTERSECT_SUBSURFACE,
                          DEVICE_KERNEL_INTEGRATOR_INTERSECT_MNEE);
+  }
+  else if (use_nrc_kernel) {
+    integrator_path_next_sorted(kg,
+                                state,
+                                DEVICE_KERNEL_INTEGRATOR_INTERSECT_SUBSURFACE,
+                                DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_NRC,
+                                shader);
   }
   else if (use_raytrace_kernel) {
     integrator_path_next_sorted(kg,

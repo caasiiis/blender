@@ -951,6 +951,24 @@ class CyclesRenderSettings(bpy.types.PropertyGroup):
         min=0, max=16,
     )
 
+    bake_use_nrc: BoolProperty(
+        name="Neural Radiance Caching",
+        description="Use neural radiance caching to accelerate baking of light ray tracing by caching and reusing indirect lighting",
+        default=False,
+    )
+    bake_nrc_max_bounces: IntProperty(
+        name="NRC Max Bounces",
+        description="Maximum number of light bounces for neural radiance caching during baking",
+        default=2,
+        min=1, max=64,
+    )
+    bake_nrc_training_samples: IntProperty(
+        name="NRC Training Samples",
+        description="Number of training samples for neural radiance caching before using cached values",
+        default=16,
+        min=1, max=4096,
+    )
+
     bake_type: EnumProperty(
         name="Bake Type",
         default='COMBINED',

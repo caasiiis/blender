@@ -957,4 +957,12 @@ ccl_device_forceinline void integrator_shade_surface_raytrace(
       kg, state, render_buffer);
 }
 
+ccl_device_forceinline void integrator_shade_surface_nrc(
+    KernelGlobals kg, IntegratorState state, ccl_global float *ccl_restrict render_buffer)
+{
+  integrator_shade_surface<KERNEL_FEATURE_NODE_MASK_SURFACE,
+                           DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_NRC>(
+      kg, state, render_buffer);
+}
+
 CCL_NAMESPACE_END

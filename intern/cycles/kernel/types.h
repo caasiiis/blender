@@ -1357,6 +1357,12 @@ struct KernelBake {
   int object_index;
   int tri_offset;
   int use_camera;
+
+  /* Neural Radiance Caching. */
+  int use_nrc;
+  int nrc_max_bounces;
+  int nrc_training_samples;
+  int pad;
 };
 static_assert_align(KernelBake, 16);
 
@@ -1760,6 +1766,7 @@ enum DeviceKernel : int {
   DEVICE_KERNEL_INTEGRATOR_SHADE_LIGHT_FORWARD,
   DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE,
   DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_RAYTRACE,
+  DEVICE_KERNEL_INTEGRATOR_SHADE_SURFACE_NRC,
   DEVICE_KERNEL_INTEGRATOR_SHADE_VOLUME,
   DEVICE_KERNEL_INTEGRATOR_SHADE_VOLUME_RAY_MARCHING,
   DEVICE_KERNEL_INTEGRATOR_SHADE_SHADOW,

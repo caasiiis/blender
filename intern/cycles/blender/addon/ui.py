@@ -2271,6 +2271,38 @@ class CYCLES_RENDER_PT_bake_output_margin(CyclesButtonsPanel, Panel):
                 layout.prop(cbk, "margin", text="Size")
 
 
+class CYCLES_RENDER_PT_bake_nrc(CyclesButtonsPanel, Panel):
+    bl_label = "Neural Radiance Caching"
+    bl_context = "render"
+    bl_parent_id = "CYCLES_RENDER_PT_bake"
+    bl_options = {'DEFAULT_CLOSED'}
+    COMPAT_ENGINES = {'CYCLES'}
+
+    @classmethod
+    def poll(cls, context):
+        scene = context.scene
+        rd = scene.render
+        return rd.bake.use_multires == False
+
+    def draw_header(self, context):
+        scene = context.scene
+        cscene = scene.cycles
+        self.layout.prop(cscene, "bake_use_nrc", text="")
+
+    def draw(self, context):
+        layout = self.layout
+        layout.use_property_split = True
+        layout.use_property_decorate = False
+
+        scene = context.scene
+        cscene = scene.cycles
+
+        layout.active = cscene.bake_use_nrc
+        col = layout.column()
+        col.prop(cscene, "bake_nrc_max_bounces")
+        col.prop(cscene, "bake_nrc_training_samples")
+
+
 class CYCLES_RENDER_PT_debug(CyclesDebugButtonsPanel, Panel):
     bl_label = "Debug"
     bl_context = "render"
@@ -2668,6 +2700,7 @@ classes = (
     CYCLES_RENDER_PT_bake_selected_to_active,
     CYCLES_RENDER_PT_bake_output,
     CYCLES_RENDER_PT_bake_output_margin,
+    CYCLES_RENDER_PT_bake_nrc,
     CYCLES_RENDER_PT_debug,
     node_panel(CYCLES_MATERIAL_PT_settings),
     node_panel(CYCLES_MATERIAL_PT_settings_surface),
